@@ -21,6 +21,7 @@ public class DataAPI {
 
     public void dataIn() {
         List<Lives> livesList = new ArrayList<>();
+        int errorCount = 0;
 
         String url = "http://restapi.amap.com/v3/weather/weatherInfo";
         String key = "???";
@@ -33,20 +34,30 @@ public class DataAPI {
         String[] adcodes = new String[]{"110000","110100"};
 
         //遍历adcodes,每个城市请求一次
-        for (String adcode : adcodes) {
-            params.put("city", adcode);
-            //获取该城市对应的url
-            String json = DataUtil.getFromDataAPI(url, params, key);
-            //获取JSON数组
-            JSONArray jsonArray = (JSONArray) JSONObject.fromObject(json).get("lives");
-            //无数据返回"[[]]",且size仍然=1
-            if ( Objects.equals("[[]]", jsonArray.toString()) ) {
-                continue;
+        for (int i = 0; i < adcodes.length; i++) {
+            try {
+                params.put("city", adcodes[i]);
+                //获取该城市对应的url
+                String json = DataUtil.getFromDataAPI(url, params, key);
+                //获取JSON数组
+                JSONArray jsonArray = (JSONArray) JSONObject.fromObject(json).get("lives");
+                //无数据返回"[[]]",且size仍然=1
+                if (Objects.equals("[[]]", jsonArray.toString())) {
+                    continue;
+                }
+                //注册时间变型器
+                JSONUtils.getMorpherRegistry().registerMorpher(new DateMorpher(new String[]{"yyyy-MM-dd HH:mm:ss"}));
+                //将JSON数组转List并添加
+                livesList.addAll(JSONArray.toCollection(jsonArray, Lives.class));
+            } catch (Exception e) {
+                e.printStackTrace();
+                if(errorCount++ > 100) {
+                    break;
+                } else {
+                    i--;
+                    continue;
+                }
             }
-            //注册时间变型器
-            JSONUtils.getMorpherRegistry().registerMorpher(new DateMorpher(new String[]{"yyyy-MM-dd HH:mm:ss"}));
-            //将JSON数组转List并添加
-            livesList.addAll(JSONArray.toCollection(jsonArray, Lives.class));
             //大于1000，批量插入
             if (livesList.size() > 1000) {
                 livesDao.insertAll(livesList);

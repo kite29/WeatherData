@@ -18,6 +18,8 @@ public class WeatherDataApplication {
 
 		dataAPI.dataIn();
 //		dataAPI.dataOut();
+
+        System.exit(0);
     }
 
 }

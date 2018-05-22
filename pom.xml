@@ -62,15 +62,34 @@
             <classifier>jdk15</classifier>
         </dependency>
 
+        <dependency>
+            <groupId>name.guolanre</groupId>
+            <artifactId>myjdk</artifactId>
+            <version>0.0.4</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/myjdk-0.0.4.jar</systemPath>
+        </dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                    <!--<fork>true</fork>-->
+                    <mainClass>name.guolanren.WeatherData.WeatherDataApplication</mainClass>
+                </configuration>
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<goals>-->
+                            <!--<goal>repackage</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            </plugin>
+        </plugins>
 	</build>
 
 
