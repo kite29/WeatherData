@@ -1,5 +1,7 @@
 package name.guolanren.WeatherData.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Lives {
@@ -11,6 +13,7 @@ public class Lives {
     private String winddirection;
     private Integer windpower;
     private Integer humidity;
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date reporttime;
 
     public String getProvince() {
@@ -84,5 +87,19 @@ public class Lives {
     public void setReporttime(Date reporttime) {
         this.reporttime = reporttime;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Lives{" +
+                "province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", adcode='" + adcode + '\'' +
+                ", weather='" + weather + '\'' +
+                ", temperature=" + temperature +
+                ", winddirection='" + winddirection + '\'' +
+                ", windpower=" + windpower +
+                ", humidity=" + humidity +
+                ", reporttime=" + reporttime +
+                '}';
+    }
 }

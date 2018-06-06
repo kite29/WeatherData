@@ -55,19 +55,24 @@
             <version>8.0.11</version>
         </dependency>
 
-        <dependency>
-            <groupId>net.sf.json-lib</groupId>
-            <artifactId>json-lib</artifactId>
-            <version>2.4</version>
-            <classifier>jdk15</classifier>
-        </dependency>
+        <!-- token learning -->
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.6.0</version>
+		</dependency>
 
         <dependency>
-            <groupId>name.guolanre</groupId>
-            <artifactId>myjdk</artifactId>
-            <version>0.0.4</version>
+            <groupId>name.guolanren</groupId>
+            <artifactId>MyAPI</artifactId>
+            <version>0.1.2</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/myjdk-0.0.4.jar</systemPath>
+            <systemPath>${project.basedir}/lib/MyAPI-0.1.2.jar</systemPath>
         </dependency>
 	</dependencies>
 
@@ -78,16 +83,8 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <includeSystemScope>true</includeSystemScope>
-                    <!--<fork>true</fork>-->
                     <mainClass>name.guolanren.WeatherData.WeatherDataApplication</mainClass>
                 </configuration>
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<goals>-->
-                            <!--<goal>repackage</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
             </plugin>
         </plugins>
 	</build>
